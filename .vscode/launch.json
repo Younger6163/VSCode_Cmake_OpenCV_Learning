@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "CMake_Build",
             "program": "${workspaceFolder}/Debug/bin/out",
-            "args": ["/home/younger/VSCode_WorkSpace/Project_CPP/01_OpenCV_Base/images/test.jpg"],
+            "args": ["/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/lines.png"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
