@@ -1,10 +1,13 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 
 using namespace cv;
 int main(int argc, char** argv) {
 	Mat src, dst;
-	src = imread("D:/vcprojects/images/chars.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -23,11 +26,11 @@ int main(int argc, char** argv) {
 	adaptiveThreshold(~gray_src, binImg, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 15, -2);
 	imshow("binary image", binImg);
 
-	// 水平结构元素
+	// 姘村钩缁撴瀯鍏冪礌
 	Mat hline = getStructuringElement(MORPH_RECT, Size(src.cols / 16, 1), Point(-1, -1));
-	// 垂直结构元素
+	// 鍨傜洿缁撴瀯鍏冪礌
 	Mat vline = getStructuringElement(MORPH_RECT, Size(1, src.rows / 16), Point(-1, -1));
-	// 矩形结构
+	// 鐭╁舰缁撴瀯
 	Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3), Point(-1, -1));
 
 	Mat temp;
