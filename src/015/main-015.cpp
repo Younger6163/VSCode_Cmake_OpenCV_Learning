@@ -1,11 +1,14 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include "math.h"
 
 using namespace cv;
 int main(int agrc, char** argv) {
 	Mat src, dst;
-	src = imread("D:/vcprojects/images/cat.jpg");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...");
 		return -1;
@@ -17,11 +20,11 @@ int main(int agrc, char** argv) {
 	namedWindow(OUTPUT_WIN, CV_WINDOW_AUTOSIZE);
 	imshow(INPUT_WIN, src);
 
-	// ÉÏ²ÉÑù
+	// ä¸Šé‡‡æ ·
 	pyrUp(src, dst, Size(src.cols*2, src.rows * 2));
 	imshow(OUTPUT_WIN, dst);
 
-	// ½µ²ÉÑù
+	// é™é‡‡æ ·
 	Mat s_down;
 	pyrDown(src, s_down, Size(src.cols / 2, src.rows / 2));
 	imshow("sample down", s_down);
@@ -33,7 +36,7 @@ int main(int agrc, char** argv) {
 	GaussianBlur(g1, g2, Size(5, 5), 0, 0);
 	subtract(g1, g2, dogImg, Mat());
 
-	// ¹éÒ»»¯ÏÔÊ¾
+	// å½’ä¸€åŒ–æ˜¾ç¤º
 	normalize(dogImg, dogImg, 255, 0, NORM_MINMAX);
 	imshow("DOG Image", dogImg);
 
