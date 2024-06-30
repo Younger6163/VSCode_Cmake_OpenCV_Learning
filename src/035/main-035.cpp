@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -8,7 +11,7 @@ using namespace cv;
 int main(int argc, char** argv) {
 	char input_win[] = "input image";
 	char watershed_win[] = "watershed segmentation demo";
-	Mat src = imread("D:/vcprojects/images/cards.png");
+	Mat src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	// Mat src = imread("D:/kuaidi.jpg");
 	if (src.empty()) {
 		printf("could not load image...\n");
@@ -34,6 +37,7 @@ int main(int argc, char** argv) {
 	Mat imgLaplance;
 	Mat sharpenImg = src;
 	filter2D(src, imgLaplance, CV_32F, kernel, Point(-1, -1), 0, BORDER_DEFAULT);
+	imshow("imgLaplance", imgLaplance);
 	src.convertTo(sharpenImg, CV_32F);
 	Mat resultImg = sharpenImg - imgLaplance;
 

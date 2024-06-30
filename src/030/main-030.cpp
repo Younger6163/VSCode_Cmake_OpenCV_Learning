@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -12,7 +15,7 @@ int threshold_max = 255;
 RNG rng;
 void Demo_Contours(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/happyfish.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;

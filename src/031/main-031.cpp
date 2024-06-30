@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -11,7 +14,7 @@ const char* output_win = "convex hull demo";
 void Threshold_Callback(int, void*);
 RNG rng(12345);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/hand.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -44,7 +47,7 @@ void Threshold_Callback(int, void*) {
 		convexHull(contours[i], convexs[i], false, true);
 	}
 
-	// »æÖÆ
+	// ç»˜åˆ¶
 	dst = Mat::zeros(src.size(), CV_8UC3);
 	vector<Vec4i> empty(0);
 	for (size_t k = 0; k < contours.size(); k++) {

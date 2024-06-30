@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -12,7 +15,7 @@ const char* output_win = "image moents demo";
 RNG rng(12345);
 void Demo_Moments(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/circle.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;

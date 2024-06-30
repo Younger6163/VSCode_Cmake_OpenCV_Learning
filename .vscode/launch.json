@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "CMake_Build",
             "program": "${workspaceFolder}/Debug/bin/out",
-            "args": ["${workspaceFolder}/images/lena.png"],
+            "args": ["${workspaceFolder}/images/cards.png"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

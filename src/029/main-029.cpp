@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 
 #include <math.h>
@@ -13,9 +16,9 @@ const char* OUTPUT_T = "result image";
 const char* match_t = "template match-demo";
 void Match_Demo(int, void*);
 int main(int argc, char** argv) {
-	// ´ı¼ì²âÍ¼Ïñ
+	// å¾…æ£€æµ‹å›¾åƒ
 	src = imread("D:/vcprojects/images/flower.png");
-	// Ä£°åÍ¼Ïñ
+	// æ¨¡æ¿å›¾åƒ
 	temp = imread("D:/vcprojects/images/t2.png");
 	if (src.empty() || temp.empty()) {
 		printf("could not load image...\n");
@@ -53,7 +56,7 @@ void Match_Demo(int, void*) {
 		temLoc = maxLoc;
 	}
 
-	// »æÖÆ¾ØĞÎ
+	// ç»˜åˆ¶çŸ©å½¢
 	rectangle(dst, Rect(temLoc.x, temLoc.y, temp.cols, temp.rows), Scalar(0, 0, 255), 2, 8);
 	rectangle(result, Rect(temLoc.x, temLoc.y, temp.cols, temp.rows), Scalar(0, 0, 255), 2, 8);
 	

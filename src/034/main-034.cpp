@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -39,12 +42,12 @@ int main(int argc, char** argv) {
 	for (int row = 0; row < drawImg.rows; row++) {
 		for (int col = 0; col < drawImg.cols; col++) {
 			float dist = raw_dist.at<float>(row, col);
-			if (dist > 0) {
+			if (dist > 0) {	// inside
 				drawImg.at<Vec3b>(row, col)[0] = (uchar)(abs(1.0 - (dist / maxValue)) * 255);
 			}
-			else if (dist < 0) {
+			else if (dist < 0) {	// outside
 				drawImg.at<Vec3b>(row, col)[2] = (uchar)(abs(1.0 - (dist / minValue)) * 255);
-			} else {
+			} else {	//onside
 				drawImg.at<Vec3b>(row, col)[0] = (uchar)(abs(255 - dist));
 				drawImg.at<Vec3b>(row, col)[1] = (uchar)(abs(255 - dist));
 				drawImg.at<Vec3b>(row, col)[2] = (uchar)(abs(255 - dist));

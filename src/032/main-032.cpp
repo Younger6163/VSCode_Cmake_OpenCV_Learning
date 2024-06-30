@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -11,7 +14,7 @@ const char* output_win = "rectangle-demo";
 RNG rng(12345);
 void Contours_Callback(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/hotball.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -49,6 +52,7 @@ void Contours_Callback(int, void*) {
 
 	for (size_t i = 0; i < contours.size(); i++) {
 		approxPolyDP(Mat(contours[i]), contours_ploy[i], 3, true);
+		// contours[i] = contours_ploy[i];
 		ploy_rects[i] = boundingRect(contours_ploy[i]);
 		minEnclosingCircle(contours_ploy[i], ccs[i], radius[i]);
 		if (contours_ploy[i].size() > 5) {
@@ -62,11 +66,11 @@ void Contours_Callback(int, void*) {
 	Point2f pts[4];
 	for (size_t t = 0; t < contours.size(); t++) {
 		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		//rectangle(drawImg, ploy_rects[t], color, 2, 8);
-		//circle(drawImg, ccs[t], radius[t], color, 2, 8);
+		rectangle(drawImg, ploy_rects[t], color, 2, 8);
+		circle(drawImg, ccs[t], radius[t], color, 2, 8);
 		if (contours_ploy[t].size() > 5) {
 			ellipse(drawImg, myellipse[t], color, 1, 8);
-			minRects[t].points(pts);
+			minRects[t].points(pts);	// 赋值给points
 			for (int r = 0; r < 4; r++) {
 				line(drawImg, pts[r], pts[(r + 1) % 4], color, 1, 8);
 			}
