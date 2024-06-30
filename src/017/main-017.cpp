@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -7,7 +10,8 @@ int main(int argc, char** argv) {
 	Mat src, dst;
 	int ksize = 0;
 
-	src = imread("D:/vcprojects/images/test1.png");
+	// src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+	src = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -19,19 +23,29 @@ int main(int argc, char** argv) {
 	namedWindow(OUTPUT_WIN, CV_WINDOW_AUTOSIZE);
 
 	imshow(INPUT_WIN, src);
+
+	// // Robert X 鏂瑰悜
+	// Mat kernel_x = (Mat_<int>(2, 2) << 1, 0, 0, -1);
+	// filter2D(src, dst, -1, kernel_x, Point(-1, -1), 0.0);
+
+	// // Robert Y 鏂瑰悜
+	// Mat yimg;
+	// Mat kernel_y = (Mat_<int>(2, 2) << 0, -1, 1, 0);
+	// filter2D(src, yimg, -1, kernel_y, Point(-1, -1), 0.0);
 	
-	// Sobel X 方向
+	// // Sobel X 鏂瑰悜
 	// Mat kernel_x = (Mat_<int>(3, 3) << -1, 0, 1, -2,0,2,-1,0,1);
 	// filter2D(src, dst, -1, kernel_x, Point(-1, -1), 0.0);
 
-	// Sobel Y 方向
+	// // Sobel Y 鏂瑰悜
 	// Mat yimg;
 	// Mat kernel_y = (Mat_<int>(3, 3) << -1, -2, -1, 0,0,0, 1,2,1);
 	// filter2D(src, yimg, -1, kernel_y, Point(-1, -1), 0.0);
 
-	// 拉普拉斯算子
-	//Mat kernel_y = (Mat_<int>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0);
-	//filter2D(src, dst, -1, kernel_y, Point(-1, -1), 0.0);
+	// 鎷夋櫘鎷夋柉绠楀瓙
+	// Mat kernel_y = (Mat_<int>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0);
+	// filter2D(src, dst, -1, kernel_y, Point(-1, -1), 0.0);
+
 	int c = 0;
 	int index = 0;
 	while (true) {
@@ -47,5 +61,8 @@ int main(int argc, char** argv) {
 	}
 
 	// imshow("Sobel Y", yimg);
+	// imshow("X", dst);
+	// imshow("Y", yimg);
+	waitKey(0);
 	return 0;
 }

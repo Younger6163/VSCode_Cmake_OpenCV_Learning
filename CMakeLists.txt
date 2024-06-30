@@ -11,7 +11,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
 project(OpenCV_Base)
 
 # OpenCV config
-set(OpenCV_INCLUDE_DIRS /usr/local/opencv-3.4.18/include)
-set(OpenCV_LIBS /usr/local/opencv-3.4.18/lib)
+set(OpenCV_INCLUDE_DIRS /usr/local/opencv_3.4.18/include)
+set(OpenCV_LIBS /usr/local/opencv_3.4.18/lib)
 
 add_subdirectory(src)

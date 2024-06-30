@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -11,7 +14,7 @@ int type_max = 4;
 const char* output_title = "binary image";
 void Threshold_Demo(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/test.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -30,6 +33,8 @@ int main(int argc, char** argv) {
 
 void Threshold_Demo(int, void*) {
 	cvtColor(src, gray_src, CV_BGR2GRAY);
-	threshold(src, dst, 0, 255, THRESH_TRIANGLE | type_value);
+	threshold(gray_src, dst, 0, 255, THRESH_TRIANGLE | type_value);
+	// threshold(gray_src, dst, 0, 255, THRESH_OTSU | type_value);
+	// threshold(gray_src, dst, threshold_value, threshold_max, type_value);
 	imshow(output_title, dst);
 }
