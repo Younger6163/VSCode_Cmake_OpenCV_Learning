@@ -1,11 +1,14 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
 using namespace cv;
 int main(int argc, char** argv) {
 	Mat src, dst;
-	src = imread("D:/vcprojects/images/lena.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image");
 	}
@@ -21,7 +24,7 @@ int main(int argc, char** argv) {
 	Laplacian(gray_src, edge_image, CV_16S, 3);
 	convertScaleAbs(edge_image, edge_image);
 
-	threshold(edge_image, edge_image, 0, 255, THRESH_OTSU | THRESH_BINARY);
+	// threshold(edge_image, edge_image, 0, 255, THRESH_OTSU | THRESH_BINARY);
 	namedWindow(output_title, CV_WINDOW_AUTOSIZE);
 	imshow(output_title, edge_image);
 

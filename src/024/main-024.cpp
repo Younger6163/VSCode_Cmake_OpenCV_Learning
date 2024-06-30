@@ -1,14 +1,17 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
 using namespace cv;
 Mat src, dst, map_x, map_y;
 const char* OUTPUT_TITLE = "remap demo";
-int index = 0;
+int method_index = 0;
 void update_map(void);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/test.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -27,7 +30,7 @@ int main(int argc, char** argv) {
 		if ((char)c == 27) {
 			break;
 		}
-		index = c % 4;
+		method_index = c % 4;
 		update_map();
 		remap(src, dst, map_x, map_y, INTER_LINEAR, BORDER_CONSTANT, Scalar(0, 255, 255));
 		imshow(OUTPUT_TITLE, dst);
@@ -39,7 +42,7 @@ int main(int argc, char** argv) {
 void update_map(void) {
 	for (int row = 0; row < src.rows; row++) {
 		for (int col = 0; col < src.cols; col++) {
-			switch (index) {
+			switch (method_index) {
 			case 0:
 				if (col > (src.cols * 0.25) && col <= (src.cols*0.75) && row > (src.rows*0.25) && row <= (src.rows*0.75)) {
 					map_x.at<float>(row, col) = 2 * (col - (src.cols*0.25));

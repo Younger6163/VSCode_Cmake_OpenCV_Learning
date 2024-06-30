@@ -1,15 +1,18 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
 using namespace cv;
 Mat src, gray_src, dst;
 int t1_value = 50;
-int max_value = 255;
+int max_value = 128;
 const char* OUTPUT_TITLE = "Canny Result";
 void Canny_Demo(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/lena.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -33,8 +36,8 @@ void Canny_Demo(int, void*) {
 	blur(gray_src, gray_src, Size(3, 3), Point(-1, -1), BORDER_DEFAULT);
 	Canny(gray_src, edge_output, t1_value, t1_value * 2, 3, false);
 
-	//dst.create(src.size(), src.type());
-	//src.copyTo(dst, edge_output);
-	// (edge_output, edge_output);
-	imshow(OUTPUT_TITLE, ~edge_output);
+	// dst.create(src.size(), src.type());
+	// src.copyTo(dst, edge_output);
+	// imshow(OUTPUT_TITLE, dst);
+	imshow(OUTPUT_TITLE, edge_output);
 }

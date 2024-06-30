@@ -1,11 +1,14 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
 using namespace cv;
 int main(int argc, char** argv) {
 	Mat src, dst;
-	src = imread("D:/vcprojects/images/test.png");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -41,12 +44,15 @@ int main(int argc, char** argv) {
 		for (int col = 0; col < width; col++) {
 			int xg = xgrad.at<uchar>(row, col);
 			int yg = ygrad.at<uchar>(row, col);
-			int xy = xg + yg;
+			int xy = (xg + yg) / 2;
 			xygrad.at<uchar>(row, col) = saturate_cast<uchar>(xy);
+			// xygrad.at<uchar>(row, col) = xy;
 		}
 	}
-	//addWeighted(xgrad, 0.5, ygrad, 0.5, 0, xygrad);
 	imshow(OUTPUT_TITLE, xygrad);
+	Mat xygrad_fuc;
+	addWeighted(xgrad, 0.5, ygrad, 0.5, 0, xygrad_fuc);
+	imshow("x + y", xygrad_fuc);
 
 	waitKey(0);
 	return 0;

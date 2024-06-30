@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -9,7 +12,7 @@ Mat src; Mat hsv; Mat hue;
 int bins = 12;
 void Hist_And_Backprojection(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/t1.jpg");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;

@@ -1,11 +1,14 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
 using namespace cv;
 int main(int argc, char** argv) {
 	Mat src, dst;
-	src = imread("D:/vcprojects/images/test.jpg");
+	src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -15,7 +18,7 @@ int main(int argc, char** argv) {
 	namedWindow(INPUT_WIN, CV_WINDOW_AUTOSIZE);
 	namedWindow(OUTPUT_WIN, CV_WINDOW_AUTOSIZE);
 	imshow(INPUT_WIN, src);
-	/*
+
 	int top = (int)(0.05*src.rows);
 	int bottom = (int)(0.05*src.rows);
 	int left = (int)(0.05*src.cols);
@@ -41,10 +44,10 @@ int main(int argc, char** argv) {
 		copyMakeBorder(src, dst, top, bottom, left, right, borderType, color);
 		imshow(OUTPUT_WIN, dst);
 	}
-	*/
 
-	GaussianBlur(src, dst, Size(5, 5), 0, 0);
-	imshow(OUTPUT_WIN, dst);
+
+	// GaussianBlur(src, dst, Size(5, 5), 0, 0);
+	// imshow(OUTPUT_WIN, dst);
 
 	waitKey(0);
 	return 0;

@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -6,7 +9,7 @@ using namespace std;
 using namespace cv;
 
 int main(int argc, char** argv) {
-	Mat src = imread("D:/vcprojects/images/test.png");
+	Mat src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
 	if (!src.data) {
 		printf("could not load image...\n");
 		return -1;
@@ -17,12 +20,12 @@ int main(int argc, char** argv) {
 	namedWindow(OUTPUT_T, CV_WINDOW_AUTOSIZE);
 	imshow(INPUT_T, src);
 
-	// ·ÖÍ¨µÀÏÔÊ¾
+	// åˆ†é€šé“æ˜¾ç¤º
 	vector<Mat> bgr_planes;
 	split(src, bgr_planes);
 	//imshow("single channel demo", bgr_planes[0]);
 
-	// ¼ÆËãÖ±·½Í¼
+	// è®¡ç®—ç›´æ–¹å›¾
 	int histSize = 256;
 	float range[] = { 0, 256 };
 	const float *histRanges = { range };
@@ -31,7 +34,7 @@ int main(int argc, char** argv) {
 	calcHist(&bgr_planes[1], 1, 0, Mat(), g_hist, 1, &histSize, &histRanges, true, false);
 	calcHist(&bgr_planes[2], 1, 0, Mat(), r_hist, 1, &histSize, &histRanges, true, false);
 
-	// ¹éÒ»»¯
+	// å½’ä¸€åŒ–
 	int hist_h = 400;
 	int hist_w = 512;
 	int bin_w = hist_w / histSize;
