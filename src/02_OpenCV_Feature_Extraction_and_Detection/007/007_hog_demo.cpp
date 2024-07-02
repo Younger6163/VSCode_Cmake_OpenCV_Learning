@@ -1,11 +1,15 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+#include<opencv2/objdetect.hpp>
 #include <iostream>
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv) {
-	Mat src = imread("D:/vcprojects/images/HOGV.png");
+	Mat src = imread(argv[1], IMREAD_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;
@@ -13,16 +17,16 @@ int main(int argc, char** argv) {
 	namedWindow("input image", CV_WINDOW_AUTOSIZE);
 	imshow("input image", src);
 
-	/*Mat dst, dst_gray;
-	resize(src, dst, Size(64, 128));
-	cvtColor(dst, dst_gray, COLOR_BGR2GRAY);
-	HOGDescriptor detector(Size(64, 128), Size(16, 16), Size(8, 8), Size(8, 8), 9);
+	// Mat dst, dst_gray;
+	// resize(src, dst, Size(64, 128));
+	// cvtColor(dst, dst_gray, COLOR_BGR2GRAY);
+	// HOGDescriptor detector(Size(64, 128), Size(16, 16), Size(8, 8), Size(8, 8), 9);
 
-	vector<float> descriptors;
-	vector<Point> locations;
-	detector.compute(dst_gray, descriptors, Size(0, 0), Size(0, 0), locations);
-	printf("number of HOG descriptors : %d", descriptors.size());
-	*/
+	// vector<float> descriptors;
+	// vector<Point> locations;
+	// detector.compute(dst_gray, descriptors, Size(0, 0), Size(0, 0), locations);
+	// printf("number of HOG descriptors : %d", descriptors.size());
+
 	HOGDescriptor hog = HOGDescriptor();
 	hog.setSVMDetector(hog.getDefaultPeopleDetector());
 

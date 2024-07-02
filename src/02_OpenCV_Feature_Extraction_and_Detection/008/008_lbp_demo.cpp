@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
 #include <iostream>
 #include "math.h"
 
@@ -10,7 +13,7 @@ int current_radius = 3;
 int max_count = 20;
 void ELBP_Demo(int, void*);
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/test.png");
+	src = imread(argv[1], IMREAD_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;
@@ -25,7 +28,7 @@ int main(int argc, char** argv) {
 	int width = gray_src.cols;
 	int height = gray_src.rows;
 
-	// 基本LBP演示
+	// 鍩烘湰LBP婕旂ず
 	Mat lbpImage = Mat::zeros(gray_src.rows - 2, gray_src.cols - 2, CV_8UC1);
 	for (int row = 1; row < height - 1; row++) {
 		for (int col = 1; col < width - 1; col++) {
@@ -44,7 +47,7 @@ int main(int argc, char** argv) {
 	}
 	imshow(output_tt, lbpImage);
 
-	// ELBP 演示
+	// ELBP 婕旂ず
 	namedWindow("ELBP Result", CV_WINDOW_AUTOSIZE);
 	createTrackbar("ELBP Radius:", "ELBP Result", &current_radius, max_count, ELBP_Demo);
 	ELBP_Demo(0, 0);

@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "CMake_Build",
             "program": "${workspaceFolder}/Debug/bin/out",
-            "args": ["${workspaceFolder}/images/contours.png"],
+            "args": ["${workspaceFolder}/images/test.png"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
