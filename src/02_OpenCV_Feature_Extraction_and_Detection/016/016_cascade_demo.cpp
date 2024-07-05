@@ -1,18 +1,22 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+#include "opencv2/objdetect.hpp"
 #include <iostream>
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv) {
-	String cascadeFilePath = "D:/opencv3.1/opencv/build/etc/haarcascades/haarcascade_frontalface_alt.xml";
+	String cascadeFilePath = "/home/younger/tools/OpenCV/opencv-3.4.18/data/haarcascades/haarcascade_frontalface_alt.xml";
 	CascadeClassifier face_cascade;
 	if (!face_cascade.load(cascadeFilePath)) {
 		printf("could not load haar data...\n");
 		return -1;
 	}
 	Mat src, gray_src;
-	src = imread("D:/vcprojects/images/test.png");
+	src = imread(argv[1], IMREAD_COLOR);
 	cvtColor(src, gray_src, COLOR_BGR2GRAY);
 	equalizeHist(gray_src, gray_src);
 	imshow("input image", src);

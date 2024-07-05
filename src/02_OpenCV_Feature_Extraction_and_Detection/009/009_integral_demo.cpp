@@ -1,10 +1,13 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
 #include <iostream>
 
 using namespace cv;
 
 int main(int argc, char** argv) {
-	Mat src = imread("D:/vcprojects/images/test.png", IMREAD_GRAYSCALE);
+	Mat src = imread(argv[1], IMREAD_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;

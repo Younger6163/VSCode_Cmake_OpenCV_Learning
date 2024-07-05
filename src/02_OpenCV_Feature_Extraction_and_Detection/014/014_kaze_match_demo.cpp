@@ -1,4 +1,8 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+#include <opencv2/xfeatures2d.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -6,8 +10,8 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv) {
-	Mat img1 = imread("D:/vcprojects/images/box.png", IMREAD_GRAYSCALE);
-	Mat img2 = imread("D:/vcprojects/images/box_in_scene.png", IMREAD_GRAYSCALE);
+	Mat img1 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-01.png", IMREAD_GRAYSCALE);
+	Mat img2 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-02.png", IMREAD_GRAYSCALE);
 	if (img1.empty() || img2.empty()) {
 		printf("could not load images...\n");
 		return -1;
@@ -38,9 +42,9 @@ int main(int argc, char** argv) {
 	Mat akazeMatchesImg;
 	drawMatches(img1, keypoints_obj, img2, keypoints_scene, matches, akazeMatchesImg);
 	imshow("akaze match result", akazeMatchesImg);
-	/*
+
 	vector<DMatch> goodMatches;
-	double minDist = 100000, maxDist = 0;
+	double minDist = 100, maxDist = 0;
 	for (int i = 0; i < descriptor_obj.rows; i++) {
 		double dist = matches[i].distance;
 		if (dist < minDist) {
@@ -54,7 +58,7 @@ int main(int argc, char** argv) {
 
 	for (int i = 0; i < descriptor_obj.rows; i++) {
 		double dist = matches[i].distance;
-		if (dist < max( 1.5*minDist, 0.02)) {
+		if (dist < max( 3*minDist, 0.02)) {
 			goodMatches.push_back(matches[i]);
 		}
 	}
@@ -62,7 +66,7 @@ int main(int argc, char** argv) {
 	drawMatches(img1, keypoints_obj, img2, keypoints_scene, goodMatches, akazeMatchesImg, Scalar::all(-1), 
 		Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 	imshow("good match result", akazeMatchesImg);
-	*/
+
 	waitKey(0);
 	return 0;
 }

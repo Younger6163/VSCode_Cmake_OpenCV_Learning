@@ -1,12 +1,16 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+#include <opencv2/xfeatures2d.hpp>
 #include <iostream>
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv) {
-	Mat img1 = imread("D:/vcprojects/images/box.png", IMREAD_GRAYSCALE);
-	Mat img2 = imread("D:/vcprojects/images/box_in_scene.png", IMREAD_GRAYSCALE);
+	Mat img1 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-01.png", IMREAD_GRAYSCALE);
+	Mat img2 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-02.png", IMREAD_GRAYSCALE);
 	if (img1.empty() || img2.empty()) {
 		printf("could not load images...\n");
 		return -1;
@@ -32,7 +36,7 @@ int main(int argc, char** argv) {
 	drawMatches(img1, keypoints_obj, img2, keypoints_scene, matches, matchesImg);
 	imshow("BRISK MATCH RESULT", matchesImg);
 
-	//  draw key points
+	// // draw key points
 	// Mat resultImg;
 	// drawKeypoints(src, keypoints, resultImg, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
 	// imshow("Brisk Key Points", resultImg);

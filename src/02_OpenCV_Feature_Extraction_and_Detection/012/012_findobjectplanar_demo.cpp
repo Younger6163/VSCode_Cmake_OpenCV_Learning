@@ -1,4 +1,8 @@
-#include <opencv2/opencv.hpp>
+#include<opencv2/core.hpp>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+#include<opencv2/calib3d.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <iostream>
 #include <math.h>
@@ -8,8 +12,8 @@ using namespace std;
 using namespace cv::xfeatures2d;
 
 int main(int argc, char** argv) {
-	Mat img1 = imread("D:/vcprojects/images/box.png", IMREAD_GRAYSCALE);
-	Mat img2 = imread("D:/vcprojects/images/box_in_scene.png", IMREAD_GRAYSCALE);
+	Mat img1 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-01.png", IMREAD_GRAYSCALE);
+	Mat img2 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/digit-02.png", IMREAD_GRAYSCALE);
 	if (!img1.data || !img2.data) {
 		return -1;
 	}
