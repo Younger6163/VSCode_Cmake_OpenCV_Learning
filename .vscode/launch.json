@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "CMake_Build",
             "program": "${workspaceFolder}/Debug/bin/out",
-            "args": ["${workspaceFolder}/images/images_cases/case6.jpg"],
+            "args": ["${workspaceFolder}/images/001/coins_001.jpg"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
