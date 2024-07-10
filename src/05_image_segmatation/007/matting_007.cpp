@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -17,7 +20,7 @@ void setROIMask();
 void showImage();
 void runGrabCut();
 int main(int argc, char** argv) {
-	src = imread("D:/vcprojects/images/flower.png", 1);
+	src = imread(argv[1], IMREAD_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;
@@ -107,7 +110,9 @@ void runGrabCut() {
 	
 	if (init) {
 		grabCut(src, mask, rect, bgModel, fgModel, 1);
-	} {
+	} 
+	else
+	{
 		grabCut(src, mask, rect, bgModel, fgModel, 1, GC_INIT_WITH_RECT);
 		init = true;
 	}

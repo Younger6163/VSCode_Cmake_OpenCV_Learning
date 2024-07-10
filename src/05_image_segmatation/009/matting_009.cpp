@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 #include <iostream>
 
 using namespace cv;
@@ -9,10 +12,10 @@ Mat background_01;
 Mat background_02;
 int main(int argc, char** argv) {
 	// start here...	
-	background_01 = imread("D:/vcprojects/images/bg_01.jpg");
-	background_02 = imread("D:/vcprojects/images/bg_02.jpg");
+	background_01 = imread("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/001/bg_1.jpeg");
+	// background_02 = imread("D:/vcprojects/images/bg_02.jpg");
 	VideoCapture capture;
-	capture.open("D:/vcprojects/images/01.mp4");
+	capture.open("/home/younger/VSCode_WorkSpace/Project_CPP/VSCode_Cmake_OpenCV_Learning/images/001/01.mp4");
 	if (!capture.isOpened()) {
 		printf("could not find the video file...\n");
 		return -1;
@@ -26,7 +29,7 @@ int main(int argc, char** argv) {
 	while (capture.read(frame)) {
 		cvtColor(frame, hsv, COLOR_BGR2HSV);
 		inRange(hsv, Scalar(35, 43, 46), Scalar(155, 255, 255), mask);
-		// 形态学操作
+		// 褰㈡�佸鎿嶄綔
 		Mat k = getStructuringElement(MORPH_RECT, Size(3, 3), Point(-1, -1));
 		morphologyEx(mask, mask, MORPH_CLOSE, k);
 		erode(mask, mask, k);
@@ -66,13 +69,13 @@ Mat replace_and_blend(Mat &frame, Mat &mask) {
 		uchar* targetrow = result.ptr<uchar>(row);
 		for (int col = 0; col < w; col++) {
 			m = *maskrow++;
-			if (m == 255) { // 背景
+			if (m == 255) { // 鑳屾櫙
 				*targetrow++ = *bgrow++;
 				*targetrow++ = *bgrow++;
 				*targetrow++ = *bgrow++;
 				current += 3;
 
-			} else if(m==0) {// 前景
+			} else if(m==0) {// 鍓嶆櫙
 				*targetrow++ = *current++;
 				*targetrow++ = *current++;
 				*targetrow++ = *current++;
@@ -86,10 +89,10 @@ Mat replace_and_blend(Mat &frame, Mat &mask) {
 				g2 = *current++;
 				r2 = *current++;
 
-				// 权重
+				// 鏉冮噸
 				wt = m / 255.0;
 				
-				// 混合
+				// 娣峰悎
 				b = b1*wt + b2*(1.0 - wt);
 				g = g1*wt + g2*(1.0 - wt);
 				r = r1*wt + r2*(1.0 - wt);

@@ -1,4 +1,7 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 #include <iostream>
 
 using namespace cv;
@@ -6,7 +9,7 @@ using namespace std;
 
 Mat mat_to_samples(Mat &image);
 int main(int argc, char** argv) {
-	Mat src = imread("D:/vcprojects/images/toux.jpg");
+	Mat src = imread(argv[1], IMREAD_COLOR);
 	if (src.empty()) {
 		printf("could not load image...\n");
 		return -1;
@@ -14,20 +17,20 @@ int main(int argc, char** argv) {
 	namedWindow("input image", CV_WINDOW_AUTOSIZE);
 	imshow("input image", src);
 
-	// ×é×°Êı¾İ
+	// ç»„è£…æ•°æ®
 	Mat points = mat_to_samples(src);
 
-	// ÔËĞĞKMeans
+	// è¿è¡ŒKMeans
 	int numCluster = 4;
 	Mat labels;
 	Mat centers;
 	TermCriteria criteria = TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 10, 0.1);
 	kmeans(points, numCluster, labels, criteria, 3, KMEANS_PP_CENTERS, centers);
 
-	// È¥±³¾°+ÕÚÕÖÉú³É
+	// å»èƒŒæ™¯+é®ç½©ç”Ÿæˆ
 	Mat mask=Mat::zeros(src.size(), CV_8UC1);
 	int index = src.rows*2 + 2;
-	int cindex = labels.at<int>(index, 0);
+	int cindex = labels.at<int>(index, 0);	//! èƒŒæ™¯ç‚¹
 	int height = src.rows;
 	int width = src.cols;
 	//Mat dst;
@@ -36,7 +39,7 @@ int main(int argc, char** argv) {
 		for (int col = 0; col < width; col++) {
 			index = row*width + col;
 			int label = labels.at<int>(index, 0);
-			if (label == cindex) { // ±³¾°
+			if (label == cindex) { // èƒŒæ™¯
 				//dst.at<Vec3b>(row, col)[0] = 0;
 				//dst.at<Vec3b>(row, col)[1] = 0;
 				//dst.at<Vec3b>(row, col)[2] = 0;
@@ -48,14 +51,14 @@ int main(int argc, char** argv) {
 	}
 	//imshow("mask", mask);
 
-	// ¸¯Ê´ + ¸ßË¹Ä£ºı
+	// è…èš€ + é«˜æ–¯æ¨¡ç³Š
 	Mat k = getStructuringElement(MORPH_RECT, Size(3, 3), Point(-1, -1));
 	erode(mask, mask, k);
 	//imshow("erode-mask", mask);
 	GaussianBlur(mask, mask, Size(3, 3), 0, 0);
 	//imshow("Blur Mask", mask);
 
-	// Í¨µÀ»ìºÏ
+	// é€šé“æ··åˆ
 	RNG rng(12345);
 	Vec3b color;
 	color[0] = 217;//rng.uniform(0, 255);
@@ -72,10 +75,10 @@ int main(int argc, char** argv) {
 		for (int col = 0; col < width; col++) {
 			int m = mask.at<uchar>(row, col);
 			if (m == 255) {
-				result.at<Vec3b>(row, col) = src.at<Vec3b>(row, col); // Ç°¾°
+				result.at<Vec3b>(row, col) = src.at<Vec3b>(row, col); // å‰æ™¯
 			}
 			else if (m == 0) {
-				result.at<Vec3b>(row, col) = color; // ±³¾°
+				result.at<Vec3b>(row, col) = color; // èƒŒæ™¯
 			} 
 			else {
 				w = m / 255.0;
@@ -97,7 +100,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
-	imshow("±³¾°Ìæ»»", result);
+	imshow("èƒŒæ™¯æ›¿æ¢", result);
 
 	waitKey(0);
 	return 0;
