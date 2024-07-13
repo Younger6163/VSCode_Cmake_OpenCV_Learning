@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "CMake_Build",
             "program": "${workspaceFolder}/Debug/bin/out",
-            "args": ["${workspaceFolder}/images/001/toux.jpg"],
+            "args": ["${workspaceFolder}/images/001/dog.jpg"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
