@@ -3,4 +3,5 @@
 # add_subdirectory(02_OpenCV_Feature_Extraction_and_Detection)
 # add_subdirectory(03_some_cases)
 # add_subdirectory(05_image_segmatation)
-add_subdirectory(07_Opencv_DNN)
+# add_subdirectory(07_Opencv_DNN)
+add_subdirectory(08_Face_Recognition)
